@@ -1,5 +1,12 @@
 # Registro dei rilasci
 
+## V2.2.0 — 21 novembre 2026
+
+- Aggiunta la sezione **Suggerimenti** su Mac e Windows. Il modulo salva la proposta sul computer, la accoda per il repository privato e mostra la ricevuta con il collegamento all’issue.
+- Le installazioni degli utenti usano il loro accesso GitHub CLI. Il Mac configurato per lo sviluppo può inoltrare la propria coda tramite il connettore GitHub di Codex. Un invio con esito incerto viene dapprima cercato su GitHub.
+- Il proprietario autorizza una proposta specifica pubblicando il comando dell’issue in un nuovo commento. Il controllo verifica l’identità GitHub e l’impronta del testo. Un commento di revoca o la chiusura dell’issue ferma il lavoro successivo. Le modifiche approvate passano per una pull request da rivedere.
+- Backup V2.1.1 in `../backup/ClipLab-V2.1.1`. Le prove includono salvataggio, riavvio, gestione di invii incerti, autorizzazioni e revoca. I test delle varianti Windows sono eseguiti su Mac.
+
 ## V2.1.1 — 20 novembre 2026
 
 - Corretti i dati simulati dei test di proprietà del motore: includono ora la cartella dati effettiva. Il controllo dell’app continua a distinguere installazioni con cartelle dati diverse.

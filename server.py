@@ -19,6 +19,7 @@ import engine
 import youtube
 import captions
 import publishing
+import suggestions
 import tiktok
 from version import VERSION
 from filelock import FileLock, Timeout
@@ -50,10 +51,12 @@ async def lifespan(app):
                     changed=True
             if changed:engine.write_project(p)
         publishing.start()
+        suggestions.start()
         try:
             yield
         finally:
             for event in list(engine.EVENTS.values()):event.set()
+            suggestions.stop()
             publishing.stop()
             POOL.shutdown(wait=False,cancel_futures=True)
     finally:
@@ -451,6 +454,37 @@ def pause_publications(body:PauseBody):
 def cancel_publication(job_id:str):
     publishing.cancel(job_id)
     return {"cancelled":True}
+
+
+class SuggestionBody(BaseModel):
+    id: str = Field(pattern=r"^[0-9a-f]{32}$")
+    title: str = Field(min_length=1, max_length=120)
+    description: str = Field(min_length=1, max_length=4000)
+
+
+@app.get("/api/suggestions")
+def suggestion_list():
+    items = suggestions.list_items()
+    for item in items:
+        item["can_resend"] = item["detail"] == suggestions.NO_RECEIPT
+    return {"items": items, "via_codex": suggestions.via_codex()}
+
+
+@app.post("/api/suggestions", status_code=202)
+def submit_suggestion(body: SuggestionBody):
+    return suggestions.save(body.id, body.title, body.description)
+
+
+@app.post("/api/suggestions/{key}/retry", status_code=202)
+def retry_suggestion(key: str):
+    suggestions.retry(key)
+    return {"queued": True}
+
+
+@app.post("/api/suggestions/{key}/resend", status_code=202)
+def resend_suggestion(key: str):
+    suggestions.resend(key)
+    return {"queued": True}
 
 
 class TikTokConfig(BaseModel):

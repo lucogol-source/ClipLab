@@ -9,3 +9,9 @@
 @media(max-width:1000px){.v2-grid{grid-template-columns:1fr 1.1fr;padding:18px;gap:18px}.editor-tabs button{font-size:12px;padding:10px 6px}.canvas-stage{min-height:320px}.editor-savebar{flex-direction:column}.tool-scroll{max-height:58vh}}
 @media(max-width:720px){.v2-grid{grid-template-columns:1fr}.canvas-stage{height:340px;min-height:0}.tool-scroll{max-height:none}.editor-tabs{position:sticky;top:0;background:#191f15;z-index:1}.editor-tabs button{font-size:13px;flex:1}.editor-savebar{flex-direction:row}#editor{max-height:96vh}.schedule-project-bar{flex-direction:column;align-items:flex-start}.checkbox-grid{grid-template-columns:1fr}.queue-job{flex-direction:column}.scheduler-form{padding:18px}.canvas-stage canvas{max-height:340px}.topbar{font-size:12px}.v2-preview .btn{font-size:13px}.field>label{font-size:14px}.config-row{grid-template-columns:1fr 1fr}.intro h1{font-size:37px}.intro p{font-size:14px}.caption-row input{width:82px!important}.sidebar{width:62px}.shell{margin-left:62px}}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+#suggestion-form{display:grid;gap:16px}#suggestion-form button{justify-self:start}
+.suggestion-access{margin-top:20px}.suggestion-access code{overflow-wrap:anywhere}
+#suggestion-list{display:grid;gap:12px}.suggestion-card{padding:20px 24px;border:1px solid var(--line);border-radius:12px;background:var(--panel)}
+.suggestion-meta{display:flex;align-items:center;gap:12px;font-size:12px;color:var(--muted)}
+.suggestion-card h3{margin:12px 0 4px;overflow-wrap:anywhere}.suggestion-text{white-space:pre-wrap;overflow-wrap:anywhere;margin:4px 0 16px}

@@ -1,4 +1,4 @@
-CLIPLAB V2.1.1 — INSTALLAZIONE E UTILIZZO
+CLIPLAB V2.2.0 — INSTALLAZIONE E UTILIZZO
 Windows x64 e macOS — guida da condividere insieme al programma
 
 COME AVVIARE CLIPLAB — IL FILE DA APRIRE CON DOPPIO CLIC
@@ -24,9 +24,9 @@ Trascrizione e rendering usano la CPU del computer.
 
 1. QUALE PACCHETTO USARE
 
-- Windows: ClipLab-V2.1.1-Windows.zip, destinato a Windows 10/11 x64 su
+- Windows: ClipLab-V2.2.0-Windows.zip, destinato a Windows 10/11 x64 su
   processori Intel o AMD. Non include una build nativa ARM o Windows 32 bit.
-- Mac: ClipLab-V2.1.1-Mac.zip. I comandi da usare hanno estensione .command.
+- Mac: ClipLab-V2.2.0-Mac.zip. I comandi da usare hanno estensione .command.
 
 Inviare lo ZIP preparato, non la propria cartella di lavoro completa.
 I pacchetti escludono video, progetti, account, token e componenti installati.
@@ -78,7 +78,7 @@ installato i componenti: i percorsi di Python possono dipendere dalla posizione.
 
 3. INSTALLAZIONE SU MAC
 
-1) Estrai ClipLab-V2.1.1-Mac.zip in una cartella locale stabile e scrivibile.
+1) Estrai ClipLab-V2.2.0-Mac.zip in una cartella locale stabile e scrivibile.
 2) Fai doppio clic su “Avvia ClipLab.command” e attendi la prima configurazione.
 3) Esegui “Aggiorna ClipLab.command” una volta per preparare Whisper Small.
 4) Per arrestare il motore usa “Ferma ClipLab.command”.
@@ -197,6 +197,45 @@ Questa edizione Windows è stata preparata su Mac. Il codice condiviso e i
 rami specifici per Windows sono verificati con test automatizzati; la prima
 installazione e l’uso nativo su un PC Windows richiedono ancora verifica.
 Non sono stati pubblicati contenuti reali durante i test.
+
+11. SUGGERIMENTI E APPROVAZIONE SU GITHUB
+
+Apri “Suggerimenti” nella barra laterale. Inserisci un titolo e descrivi il
+risultato che vorresti ottenere. “Salva e invia a GitHub” conserva la proposta
+sul computer e la mette in coda per il repository privato lucogol-source/ClipLab.
+Quando GitHub la riceve, “Apri issue” porta alla discussione. Puoi chiudere
+la scheda o riavviare l’app: la proposta resta nella cartella dati locale.
+
+Sul Mac dello sviluppatore già configurato, Codex inoltra la coda all’account
+collegato al prossimo controllo orario. Tieni il Mac sveglio e Codex aperto.
+Su un altro Mac o PC Windows serve un account già invitato al repository.
+Per l’invio automatico installa GitHub CLI da https://cli.github.com/ e avvia
+questo comando nel Terminale del Mac o in PowerShell su Windows:
+
+  gh auth login --hostname github.com --web
+
+Completa nel browser l’accesso con il tuo account. In ClipLab premi “Riprova
+ora”, oppure lascia acceso il motore per il tentativo automatico. La copia
+per gli utenti usa le credenziali di GitHub CLI sul loro computer. L’issue
+contiene titolo, descrizione, versione dell’app, sistema e ID della proposta.
+
+Per lo sviluppatore
+1) Apri https://github.com/lucogol-source/ClipLab/issues e leggi la proposta.
+2) Dal tuo account lucogol-source, copia dal fondo dell’issue la riga che
+   inizia con /cliplab approva e termina con il codice della proposta.
+   Pubblicala da sola in un NUOVO commento, senza virgolette o backtick.
+   Il codice identifica il testo esatto approvato. Se cambi la proposta,
+   inviala come nuova proposta per ottenere il relativo comando.
+3) Per ritirare l’approvazione aggiungi un nuovo commento con /cliplab revoca.
+   Puoi anche chiudere l’issue. Se esiste già una pull request, puoi chiuderla.
+4) Al controllo orario Codex verifica identità, repository, stato della
+   proposta e commento. Per le proposte approvate prepara un ramo dedicato,
+   esegue i test e apre una pull request collegata all’issue. La indica come
+   bozza oppure come “[Da rivedere]” se il piano GitHub richiede una PR normale.
+5) Vai su https://github.com/lucogol-source/ClipLab/pulls. Leggi il riepilogo
+   e i risultati dei test in “Conversation”. In “Files changed” puoi esaminare
+   ogni modifica e lasciare osservazioni. Merge e pubblicazione di una nuova
+   versione restano decisioni dello sviluppatore.
 
 Documentazione dei componenti gratuiti:
 Python: https://www.python.org/
