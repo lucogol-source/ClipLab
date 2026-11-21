@@ -1,0 +1,11 @@
+fastapi>=0.115,<1
+uvicorn>=0.34,<1
+python-multipart>=0.0.20,<1
+yt-dlp[default]>=2026.1.1
+imageio-ffmpeg>=0.6,<1
+faster-whisper>=1.1,<2
+av>=14,<17
+google-api-python-client>=2.160,<3
+google-auth-oauthlib>=1.2,<2
+opencv-python-headless>=4.10,<5
+filelock>=3.16,<5
