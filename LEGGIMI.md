@@ -1,4 +1,4 @@
-# ClipLab V2.2.0 per Mac e Windows
+# ClipLab V2.3.0 per Mac e Windows
 
 Per l’installazione guidata e l’uso quotidiano, apri **README.txt**, incluso nei pacchetti Mac e Windows. Su Windows x64 usa **Avvia ClipLab.cmd**: prepara Python, Node.js e gli altri componenti nella cartella dell’app. I file `.command` descritti nella sezione seguente sono per Mac. La nuova edizione Windows richiede ancora una verifica nativa su PC; i test automatici sono eseguiti sul Mac di sviluppo.
 
@@ -87,3 +87,4 @@ Leggi [CONFRONTO-E-NOVITA.md](CONFRONTO-E-NOVITA.md) per il confronto con OpusCl
 - La coda è locale: il Mac deve restare acceso con ClipLab attivo. Non avvia una macchina cloud né richiede un servizio di scheduler a pagamento.
 - In **Canali social** puoi configurare YouTube e TikTok separatamente. TikTok richiede credenziali Desktop e accesso Content Posting API: il test è privato; l’accesso pubblico richiede l’approvazione della piattaforma, non garantita per strumenti personali o di ripubblicazione.
 - Le funzioni di pubblicazione reale si possono verificare soltanto dopo il collegamento dei tuoi account. Nessun test incluso pubblica video reali.
+

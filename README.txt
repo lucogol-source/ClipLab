@@ -1,4 +1,4 @@
-CLIPLAB V2.2.0 — INSTALLAZIONE E UTILIZZO
+CLIPLAB V2.3.0 — INSTALLAZIONE E UTILIZZO
 Windows x64 e macOS — guida da condividere insieme al programma
 
 COME AVVIARE CLIPLAB — IL FILE DA APRIRE CON DOPPIO CLIC
@@ -24,9 +24,9 @@ Trascrizione e rendering usano la CPU del computer.
 
 1. QUALE PACCHETTO USARE
 
-- Windows: ClipLab-V2.2.0-Windows.zip, destinato a Windows 10/11 x64 su
+- Windows: ClipLab-V2.3.0-Windows.zip, destinato a Windows 10/11 x64 su
   processori Intel o AMD. Non include una build nativa ARM o Windows 32 bit.
-- Mac: ClipLab-V2.2.0-Mac.zip. I comandi da usare hanno estensione .command.
+- Mac: ClipLab-V2.3.0-Mac.zip. I comandi da usare hanno estensione .command.
 
 Inviare lo ZIP preparato, non la propria cartella di lavoro completa.
 I pacchetti escludono video, progetti, account, token e componenti installati.
@@ -78,7 +78,7 @@ installato i componenti: i percorsi di Python possono dipendere dalla posizione.
 
 3. INSTALLAZIONE SU MAC
 
-1) Estrai ClipLab-V2.2.0-Mac.zip in una cartella locale stabile e scrivibile.
+1) Estrai ClipLab-V2.3.0-Mac.zip in una cartella locale stabile e scrivibile.
 2) Fai doppio clic su “Avvia ClipLab.command” e attendi la prima configurazione.
 3) Esegui “Aggiorna ClipLab.command” una volta per preparare Whisper Small.
 4) Per arrestare il motore usa “Ferma ClipLab.command”.
@@ -100,6 +100,21 @@ L’importazione da File locale non richiede Node.js.
 In alternativa usa la scheda “Link YouTube” e incolla il link di un singolo
 video. Sono supportate sorgenti fino a 2 ore / 2 GB; non playlist o live in corso.
 Alcuni video possono essere indisponibili o richiedere controlli di YouTube.
+
+DIVIDERE L’INTERO VIDEO
+
+Nel modulo iniziale scegli “Dividi tutto il video” in “Come creare le clip”.
+Imposta la durata di ogni parte (30, 45, 60, 90, 120 o 180 secondi).
+ClipLab copre il video da inizio a fine, includendo pause e tratti senza parlato.
+Un video di 30 minuti con parti da 60 secondi produce 30 clip, in ordine.
+L’ultima clip contiene il tempo rimanente. Se il resto è inferiore a mezzo
+secondo, il confine precedente arretra per ottenere un’ultima clip di 0,5 s.
+Ogni clip può essere adattata nell’editor ed esportata. Le proposte di taglio
+si salvano nel progetto; l’MP4 viene creato quando esporti la singola clip.
+Se attivi “Esporta e carica automaticamente su YouTube”, autorizzi l’esportazione
+e il caricamento di tutte le parti. Tempi, spazio e quota YouTube crescono con
+il numero di clip. Per la coda programmata puoi selezionare fino a 40 clip
+per gruppo. I limiti della sorgente restano 2 ore e 2 GB.
 
 5. EDITOR, INQUADRATURA E SOTTOTITOLI
 
@@ -242,3 +257,4 @@ Python: https://www.python.org/
 uv: https://docs.astral.sh/uv/
 Node.js: https://nodejs.org/
 Runtime JavaScript per YouTube: https://github.com/yt-dlp/yt-dlp/wiki/EJS
+

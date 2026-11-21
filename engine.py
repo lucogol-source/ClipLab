@@ -301,7 +301,7 @@ def propose_clips(segments: list, duration: float, target=45, count=4) -> list:
             elapsed = s["end"] - start
             if elapsed >= target * 0.75 and (re.search(r"[.!?…]$", s["text"]) or elapsed >= target):
                 break
-        end = min(duration, start + target * 1.2, selected[-1]["end"] + 0.15)
+        end = min(duration, start + min(180, target * 1.2), selected[-1]["end"] + 0.15)
         text = " ".join(s["text"] for s in selected)
         words = re.findall(r"\w+", text.lower())
         content = {w for w in words if w not in STOP}
@@ -330,6 +330,26 @@ def propose_clips(segments: list, duration: float, target=45, count=4) -> list:
     return result
 
 
+def split_full_video(segments, duration, target, title):
+    """Cover the source in consecutive editable parts, including silence."""
+    boundaries = [0.0]
+    while boundaries[-1] + target < duration:
+        boundaries.append(boundaries[-1] + target)
+    # Keep the final part editable when only a fraction of a second remains.
+    if len(boundaries) > 1 and duration - boundaries[-1] < .5:
+        boundaries[-1] = duration - .5
+    boundaries.append(duration)
+    clips = []
+    for index, (start, end) in enumerate(zip(boundaries, boundaries[1:]), 1):
+        suffix = f" · Parte {index}"
+        text = " ".join(s["text"] for s in segments if s["end"] > start and s["start"] < end)
+        clips.append({"id": uuid.uuid4().hex[:12], "title": title[:100-len(suffix)] + suffix,
+                      "start": start, "end": end, "score": None, "text": text,
+                      "status": "suggested", "exports": [],
+                      "reason": "Parte consecutiva del video completo."})
+    return clips
+
+
 def analyze(pid: str, url=None):
     with BUSY_LOCK:
         ANALYZING.add(pid)
@@ -348,8 +368,11 @@ def analyze(pid: str, url=None):
             segments, language = [], ""
         check_cancel(pid)
         p = read_project(pid)
-        clips = propose_clips(segments, meta["duration"], p["options"]["duration"], p["options"]["count"])
-        notice = None
+        if p["options"].get("mode", "highlights") == "full":
+            clips = split_full_video(segments, meta["duration"], p["options"]["duration"], p["title"])
+        else:
+            clips = propose_clips(segments, meta["duration"], p["options"]["duration"], p["options"]["count"])
+        notice = None if segments else "Non è stato riconosciuto parlato. Le clip sono modificabili, con sottotitoli disponibili soltanto dove c’è una trascrizione."
         if not clips:
             end = min(meta["duration"], p["options"]["duration"])
             clips = [{"id": uuid.uuid4().hex[:12], "title": p["title"][:100], "start": 0, "end": end,
@@ -548,3 +571,4 @@ def render(pid, cid, settings):
         output.unlink(missing_ok=True)
         update_clip(pid, cid, status="error", error=str(e)[-1000:])
         raise
+

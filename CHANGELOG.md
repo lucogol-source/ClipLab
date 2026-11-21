@@ -1,5 +1,13 @@
 # Registro dei rilasci
 
+## V2.3.0 — 21 novembre 2026
+
+- Corretto il caricamento di Canali social. La dichiarazione globale della funzione aggiuntiva sostituiva quella di base prima della sua acquisizione, causando una ricorsione infinita e “Maximum call stack size exceeded”. Ora l’estensione viene assegnata dopo aver acquisito la funzione precedente.
+- Aggiunta la modalità “Dividi tutto il video”, che crea parti consecutive da inizio a fine e conserva anche silenzi e tratti senza parlato. La selezione dei momenti migliori resta predefinita per compatibilità con i progetti precedenti.
+- Durate disponibili di 30, 45, 60, 90, 120 e 180 secondi. L’ultima parte contiene il resto. Un resto inferiore a 0,5 s viene reso modificabile arretrando il confine precedente.
+- Verifica della navigazione tramite gli script reali, incluse configurazione e avvio OAuth simulato su entrambe le piattaforme. Test di copertura completa e del flusso di analisi. La verifica nativa Windows e l’autorizzazione con un account Google reale restano da eseguire.
+
+
 ## V2.2.0 — 21 novembre 2026
 
 - Aggiunta la sezione **Suggerimenti** su Mac e Windows. Il modulo salva la proposta sul computer, la accoda per il repository privato e mostra la ricevuta con il collegamento all’issue.
@@ -59,3 +67,4 @@ Le prove non hanno pubblicato contenuti reali né usato credenziali personali. G
 ## V2.0 — 19 novembre 2026
 
 Editor di inquadratura e sottotitoli, Whisper Small, tracking volti, layout podcast, esportazioni 1080p senza watermark aggiunto e coda locale YouTube/TikTok.
+
