@@ -1,7 +1,7 @@
 'use strict';
 var basicSettingsView=renderSettings,basicProjectView=renderProject,basicRouteView=renderRoute,publishingTimer=null;
 var queueLabels={queued:'Programmato',running:'Invio in corso',processing:'TikTok sta elaborando',published:'Consegnato',failed:'Invio fallito',blocked:'Da rivedere',cancelled:'Annullato',unknown:'Esito da verificare'};
-function renderSettings(){
+renderSettings=function(){
   basicSettingsView();
   $('#main h1').textContent='Collega i tuoi canali.';
   const tt=state.tiktok;
@@ -11,7 +11,7 @@ function renderSettings(){
   $('#tiktok-config-form').onsubmit=async e=>{e.preventDefault();try{await post('/tiktok/config',{client_key:$('#tt-client-key').value,client_secret:$('#tt-client-secret').value,mode:$('#tt-mode').value});await loadConnection();renderSettings();toast('Configurazione TikTok salvata.');}catch(err){toast(err.message,true);}};
   $('#connect-tiktok').onclick=async()=>{try{const r=await post('/tiktok/connect',{});location.href=r.url;}catch(e){toast(e.message,true);}};
   $('#disconnect-tiktok')?.addEventListener('click',async()=>{try{await api('/tiktok',{method:'DELETE'});await loadConnection();renderSettings();}catch(e){toast(e.message,true);}});
-}
+};
 renderProject=function(p){
   basicProjectView(p);
   if(p.clips.length){const bar=document.createElement('div');bar.className='schedule-project-bar';const n=p.clips.filter(c=>c.exports.length).length;bar.innerHTML=`<div><h3>Pubblica con regolarità</h3><p>${n} clip con MP4 esportato · scegli data, intervallo e piattaforme.</p></div><button class="btn primary" id="project-schedule" ${!n?'disabled':''}>Programma le clip</button>`;$('#main').append(bar);$('#project-schedule').onclick=openScheduler;}
@@ -41,3 +41,4 @@ async function renderPublishing(){
 }
 renderRoute=async function(){clearTimeout(publishingTimer);if(route()==='publishing'){clearTimeout(state.poll);if($('#editor').open&&!closeEditor())return;await renderPublishing();}else await basicRouteView();};
 $('#scheduler').addEventListener('click',e=>{if(e.target===$('#scheduler'))$('#scheduler').close();});
+

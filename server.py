@@ -98,7 +98,8 @@ async def missing(request, exc):
 
 
 class Options(BaseModel):
-    duration: Literal[30, 45, 60, 90] = 45
+    mode: Literal["highlights", "full"] = "highlights"
+    duration: Literal[30, 45, 60, 90, 120, 180] = 45
     count: int = Field(4, ge=1, le=8)
     format: Literal["9:16", "1:1", "16:9"] = "9:16"
     captions: Literal["karaoke", "clean", "none"] = "karaoke"
@@ -574,3 +575,4 @@ if __name__ == "__main__":
     config=uvicorn.Config(app,host='127.0.0.1',port=int(os.environ.get('CLIPLAB_PORT','8765')),access_log=False)
     app.state.server=uvicorn.Server(config)
     app.state.server.run()
+
