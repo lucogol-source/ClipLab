@@ -88,7 +88,7 @@ def analyze_faces(path,start,end,aspect,model,subject="largest",cancel=lambda:No
 
 def compose(image,width,height,settings,at):
     sh,sw=image.shape[:2]
-    layout=settings.get("layout","crop")
+    layout=settings.get("layout","blur")
     point=interpolate(settings.get("keyframes",[]),at,{"x":settings.get("crop",50),"y":settings.get("crop_y",50),"zoom":settings.get("zoom",1)})
     def cropped(dw,dh,p):
         x,y,w,h=crop_rect(sw,sh,dw,dh,p)

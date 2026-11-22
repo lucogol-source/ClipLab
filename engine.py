@@ -514,6 +514,7 @@ def retranscribe_clip(pid, cid, model_size="small", glossary=""):
 
 
 def render(pid, cid, settings):
+    settings = {"layout": "blur", **settings}
     import captions
     p = read_project(pid)
     clip = next(c for c in p["clips"] if c["id"] == cid)

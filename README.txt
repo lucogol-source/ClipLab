@@ -1,4 +1,4 @@
-CLIPLAB V2.3.0 — INSTALLAZIONE E UTILIZZO
+CLIPLAB V2.3.1 — INSTALLAZIONE E UTILIZZO
 Windows x64 e macOS — guida da condividere insieme al programma
 
 COME AVVIARE CLIPLAB — IL FILE DA APRIRE CON DOPPIO CLIC
@@ -24,9 +24,9 @@ Trascrizione e rendering usano la CPU del computer.
 
 1. QUALE PACCHETTO USARE
 
-- Windows: ClipLab-V2.3.0-Windows.zip, destinato a Windows 10/11 x64 su
+- Windows: ClipLab-V2.3.1-Windows.zip, destinato a Windows 10/11 x64 su
   processori Intel o AMD. Non include una build nativa ARM o Windows 32 bit.
-- Mac: ClipLab-V2.3.0-Mac.zip. I comandi da usare hanno estensione .command.
+- Mac: ClipLab-V2.3.1-Mac.zip. I comandi da usare hanno estensione .command.
 
 Inviare lo ZIP preparato, non la propria cartella di lavoro completa.
 I pacchetti escludono video, progetti, account, token e componenti installati.
@@ -78,7 +78,7 @@ installato i componenti: i percorsi di Python possono dipendere dalla posizione.
 
 3. INSTALLAZIONE SU MAC
 
-1) Estrai ClipLab-V2.3.0-Mac.zip in una cartella locale stabile e scrivibile.
+1) Estrai ClipLab-V2.3.1-Mac.zip in una cartella locale stabile e scrivibile.
 2) Fai doppio clic su “Avvia ClipLab.command” e attendi la prima configurazione.
 3) Esegui “Aggiorna ClipLab.command” una volta per preparare Whisper Small.
 4) Per arrestare il motore usa “Ferma ClipLab.command”.

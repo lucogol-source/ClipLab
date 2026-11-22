@@ -1,7 +1,7 @@
 'use strict';
 var editSession=null;
 function clipBusy(c){return ['queued','rendering','uploading','transcribing','tracking'].includes(c.status);}
-function editorDefaults(p,c){return Object.assign({start:c.start,end:c.end,title:c.title,format:p.options.format||'9:16',captions:p.options.captions||'karaoke',crop:50,crop_y:50,zoom:1,layout:'crop',quality:1080,split_left:20,split_right:80,keyframes:[],font_scale:1,caption_bottom:22,caption_color:'#d3ff5f',caption_words:5},c.exports.at(-1)?.settings||{},c.edit||{});}
+function editorDefaults(p,c){return Object.assign({start:c.start,end:c.end,title:c.title,format:p.options.format||'9:16',captions:p.options.captions||'karaoke',crop:50,crop_y:50,zoom:1,layout:'blur',quality:1080,split_left:20,split_right:80,keyframes:[],font_scale:1,caption_bottom:22,caption_color:'#d3ff5f',caption_words:5},c.exports.at(-1)?.settings||{},c.edit||{});}
 async function openEditor(cid){
   try{
     if($('#editor').open&&!closeEditor())return;
