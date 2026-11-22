@@ -4,7 +4,7 @@ ClipLab crea clip da video YouTube o da file locali su macOS e Windows x64. Tras
 
 ## Scarica e avvia
 
-1. Apri la [release V2.3.0](https://github.com/lucogol-source/ClipLab/tree/fix/social-full-video-v2.3.0/distribuzione) e scarica lo ZIP per il tuo sistema.
+1. Apri la [release V2.3.1](https://github.com/lucogol-source/ClipLab/tree/fix/social-full-video-v2.3.1/distribuzione) e scarica lo ZIP per il tuo sistema.
 2. Estrai lo ZIP e apri la cartella `ClipLab`.
 3. Su **Mac** fai doppio clic su `Avvia ClipLab.command`. Su **Windows 10/11 x64** fai doppio clic su `Avvia ClipLab.cmd`.
 

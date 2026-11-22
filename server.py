@@ -133,7 +133,7 @@ class ExportBody(BaseModel):
     crop: float = Field(50, ge=0, le=100, allow_inf_nan=False)
     crop_y: float = Field(50,ge=0,le=100,allow_inf_nan=False)
     zoom: float = Field(1,ge=1,le=3,allow_inf_nan=False)
-    layout: Literal["crop","fit","blur","split"] = "crop"
+    layout: Literal["crop","fit","blur","split"] = "blur"
     quality: Literal[720,1080] = 1080
     split_left: float = Field(20,ge=0,le=100,allow_inf_nan=False)
     split_right: float = Field(80,ge=0,le=100,allow_inf_nan=False)

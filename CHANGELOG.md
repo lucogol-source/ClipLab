@@ -1,5 +1,12 @@
 # Registro dei rilasci
 
+## V2.3.1 — 23 novembre 2026
+
+- “Intero con sfondo sfocato” è il valore predefinito dell’editor e delle esportazioni prive di una scelta esplicita, incluso il flusso automatico.
+- L’esportazione registra l’adattamento utilizzato. Le scelte già salvate nelle clip hanno precedenza sul valore predefinito.
+- Backup della V2.3.0 prima della modifica. Verifiche mirate dei valori predefiniti e delle scelte esplicite; suite JavaScript esistenti.
+
+
 ## V2.3.0 — 21 novembre 2026
 
 - Corretto il caricamento di Canali social. La dichiarazione globale della funzione aggiuntiva sostituiva quella di base prima della sua acquisizione, causando una ricorsione infinita e “Maximum call stack size exceeded”. Ora l’estensione viene assegnata dopo aver acquisito la funzione precedente.
