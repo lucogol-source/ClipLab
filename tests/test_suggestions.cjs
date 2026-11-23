@@ -8,6 +8,8 @@ vm.runInContext(fs.readFileSync(path.join(root,'static/suggestions.js'),'utf8'),
 const base = {id:'abc',created:1000,platform:'Windows',title:'<titolo>',description:'Testo',detail:''};
 for (const [state, number] of [['sent',5],['queued',null],['checking',null],['handoff',null]]) {
   const html = context.suggestionCard({...base,state,number});
+  const badge = state === 'sent' ? 'Inviata · #5' : state === 'checking' ? 'In verifica' : 'In attesa di invio';
+  assert.ok(html.includes(`<span class="status">${badge}</span>`));
   assert.ok(html.includes('&lt;titolo>'));
   assert.equal(html.includes('/issues/5'),state==='sent');
   assert.equal(html.includes('data-retry'),['queued','checking'].includes(state));

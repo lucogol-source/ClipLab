@@ -7,7 +7,7 @@ let suggestionFormContent;
 
 function suggestionCard(item) {
   const sent = item.state === 'sent' && Number.isInteger(item.number);
-  const status = sent ? 'Inviata' : ['checking','bridge_check'].includes(item.state) ? 'In verifica' : 'In attesa di invio';
+  const status = sent ? `Inviata · #${item.number}` : ['checking','bridge_check'].includes(item.state) ? 'In verifica' : 'In attesa di invio';
   const date = new Date(item.created * 1000).toLocaleDateString('it-IT');
   const action = sent
     ? `<a class="inline-link" target="_blank" rel="noopener" href="${issuesUrl}/${item.number}">Apri issue #${item.number} ↗</a>`
