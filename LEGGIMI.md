@@ -1,4 +1,4 @@
-# ClipLab V2.3.0 per Mac e Windows
+# ClipLab V2.4.0 per Mac e Windows
 
 Per l’installazione guidata e l’uso quotidiano, apri **README.txt**, incluso nei pacchetti Mac e Windows. Su Windows x64 usa **Avvia ClipLab.cmd**: prepara Python, Node.js e gli altri componenti nella cartella dell’app. I file `.command` descritti nella sezione seguente sono per Mac. La nuova edizione Windows richiede ancora una verifica nativa su PC; i test automatici sono eseguiti sul Mac di sviluppo.
 

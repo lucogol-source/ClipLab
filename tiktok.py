@@ -7,6 +7,7 @@ import time
 from urllib.parse import urlencode, urlparse
 
 import requests
+import promotion
 
 from engine import project_dir, read_project, update_clip, check_cancel
 from youtube import SECRET_DIR, save_secret
@@ -147,7 +148,7 @@ def publish_clip(pid,cid,export_id,metadata):
     size=file.stat().st_size
     chunk=min(size,32*1024*1024)
     count=max(1,size//chunk)
-    post={"title":metadata.get("title",clip["title"])[:1800],"privacy_level":metadata["privacy_level"],
+    post={"title":promotion.description(metadata.get("title",clip["title"]), metadata.get("hashtags",clip.get("hashtags", [])),1800),"privacy_level":metadata["privacy_level"],
           "disable_comment":bool(info.get("comment_disabled") or not metadata.get("allow_comments")),
           "disable_duet":bool(info.get("duet_disabled") or not metadata.get("allow_duet")),
           "disable_stitch":bool(info.get("stitch_disabled") or not metadata.get("allow_stitch")),

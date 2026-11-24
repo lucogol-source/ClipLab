@@ -15,6 +15,7 @@ from pathlib import Path
 from urllib.parse import parse_qs, urlparse
 
 import av
+import promotion
 import imageio_ffmpeg
 from platform_support import ffmpeg_tool, is_windows, process_options
 
@@ -379,6 +380,10 @@ def analyze(pid: str, url=None):
                       "score": None, "text": "", "status": "suggested", "exports": [],
                       "reason": "Clip iniziale da modificare manualmente: nessun parlato riconosciuto."}]
             notice = "Non è stato riconosciuto parlato. Puoi tagliare il video manualmente; non ci sono sottotitoli."
+        p["segments"] = segments
+        snapshot = promotion.trends()
+        for index, clip in enumerate(clips):
+            clip.update(promotion.generate(p, clip, snapshot, index))
         update(pid, status="ready", stage="Clip pronte", progress=100, segments=segments, language=language, clips=clips, notice=notice)
         if p["options"].get("auto_publish"):
             update(pid, status="processing", stage="Esportazione e caricamento automatico", progress=100)
@@ -390,7 +395,7 @@ def analyze(pid: str, url=None):
                     render(pid, clip["id"], {"start": clip["start"], "end": clip["end"], "title": clip["title"],
                                        "format": p["options"]["format"], "captions": p["options"]["captions"], "crop": 50})
                     upload_clip(pid, clip["id"], p["options"]["channel_id"], p["options"]["privacy"],
-                            p["options"].get("made_for_kids", False), clip["title"], "#Shorts")
+                            p["options"].get("made_for_kids", False), clip["title"], promotion.description(clip.get("description", ""), clip.get("hashtags", [])))
                 except Cancelled:
                     raise
                 except Exception as error:
@@ -514,6 +519,7 @@ def retranscribe_clip(pid, cid, model_size="small", glossary=""):
 
 
 def render(pid, cid, settings):
+    settings = {"layout": "blur", **settings}
     import captions
     p = read_project(pid)
     clip = next(c for c in p["clips"] if c["id"] == cid)
