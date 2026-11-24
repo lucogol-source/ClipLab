@@ -70,6 +70,8 @@ class ProjectFixture(unittest.TestCase):
         self.addCleanup(self.temp.cleanup)
         engine.BUSY.clear();engine.EVENTS.clear();engine.ANALYZING.clear()
         self.addCleanup(engine.BUSY.clear);self.addCleanup(engine.EVENTS.clear);self.addCleanup(engine.ANALYZING.clear)
+        trends_patch=patch('engine.promotion.trends',return_value={'status':'unavailable','checked_at':None,'topics':[],'source':'https://trends.google.com/trending/rss?geo=IT'})
+        trends_patch.start();self.addCleanup(trends_patch.stop)
         self.options={'duration':30,'count':2,'format':'9:16','captions':'karaoke','auto_publish':False,'channel_id':'channel','privacy':'private'}
         self.p=engine.new_project(self.options,'Test audit')
         self.pid=self.p['id'];self.cid='auditclip'

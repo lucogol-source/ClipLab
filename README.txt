@@ -1,4 +1,4 @@
-CLIPLAB V2.3.1 — INSTALLAZIONE E UTILIZZO
+CLIPLAB V2.4.0 — INSTALLAZIONE E UTILIZZO
 Windows x64 e macOS — guida da condividere insieme al programma
 
 COME AVVIARE CLIPLAB — IL FILE DA APRIRE CON DOPPIO CLIC
@@ -24,9 +24,9 @@ Trascrizione e rendering usano la CPU del computer.
 
 1. QUALE PACCHETTO USARE
 
-- Windows: ClipLab-V2.3.1-Windows.zip, destinato a Windows 10/11 x64 su
+- Windows: ClipLab-V2.4.0-Windows.zip, destinato a Windows 10/11 x64 su
   processori Intel o AMD. Non include una build nativa ARM o Windows 32 bit.
-- Mac: ClipLab-V2.3.1-Mac.zip. I comandi da usare hanno estensione .command.
+- Mac: ClipLab-V2.4.0-Mac.zip. I comandi da usare hanno estensione .command.
 
 Inviare lo ZIP preparato, non la propria cartella di lavoro completa.
 I pacchetti escludono video, progetti, account, token e componenti installati.
@@ -78,7 +78,7 @@ installato i componenti: i percorsi di Python possono dipendere dalla posizione.
 
 3. INSTALLAZIONE SU MAC
 
-1) Estrai ClipLab-V2.3.1-Mac.zip in una cartella locale stabile e scrivibile.
+1) Estrai ClipLab-V2.4.0-Mac.zip in una cartella locale stabile e scrivibile.
 2) Fai doppio clic su “Avvia ClipLab.command” e attendi la prima configurazione.
 3) Esegui “Aggiorna ClipLab.command” una volta per preparare Whisper Small.
 4) Per arrestare il motore usa “Ferma ClipLab.command”.
@@ -115,6 +115,30 @@ Se attivi “Esporta e carica automaticamente su YouTube”, autorizzi l’espor
 e il caricamento di tutte le parti. Tempi, spazio e quota YouTube crescono con
 il numero di clip. Per la coda programmata puoi selezionare fino a 40 clip
 per gruppo. I limiti della sorgente restano 2 ore e 2 GB.
+
+TITOLI, HASHTAG E DOWNLOAD MULTIPLO
+
+Le nuove clip ricevono un titolo dal tono enfatico basato sul testo e sul
+titolo della sorgente. La generazione usa regole locali gratuite. Puoi
+correggerlo nell’editor oppure premere “Genera titolo forte” per una proposta.
+Nell’editor trovi anche “Descrizione e hashtag” e “Aggiorna hashtag”.
+
+Alla creazione ClipLab consulta il feed pubblico Google Trends Italia per
+i temi cercati nelle ultime 24 ore. Gli hashtag legati alle tendenze vengono
+aggiunti quando i loro termini sono presenti nel contesto della clip.
+Nell’editor puoi vedere fonte, ora del controllo e hashtag pertinenti trovati.
+La cache dura 10 minuti. Se manca la connessione o il feed non risponde, vengono
+usati i termini del contenuto e viene indicata l’indisponibilità delle tendenze.
+Google Trends misura le ricerche Google; questi dati suggeriscono temi attuali.
+Le descrizioni YouTube e le didascalie TikTok ricevono gli hashtag della clip.
+La generazione di titoli e hashtag non garantisce visualizzazioni.
+
+Per scaricare più video, prima esporta le clip desiderate. Seleziona le
+caselle delle clip o “Seleziona le clip esportate”, poi “Scarica selezionati”.
+Lo ZIP contiene gli MP4, gli SRT disponibili e un file TXT e JSON per ogni
+clip con titolo, descrizione, hashtag e informazioni sulla fonte delle tendenze.
+Le clip modificate richiedono una nuova esportazione. Lo ZIP viene preparato
+temporaneamente sul disco: serve spazio libero per copiarvi le clip selezionate.
 
 5. EDITOR, INQUADRATURA E SOTTOTITOLI
 

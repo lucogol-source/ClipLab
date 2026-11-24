@@ -1,6 +1,15 @@
 # Registro dei rilasci
 
-## V2.3.1 — 23 novembre 2026
+## V2.4.0 — 24 novembre 2026
+
+- Titoli enfatici generati localmente per le nuove clip e pulsante di rigenerazione nell’editor.
+- Descrizioni con hashtag del contenuto e temi pertinenti letti dal feed pubblico Google Trends Italia. Fonte e data del controllo sono visibili. La modalità offline conserva gli hashtag del contenuto.
+- Hashtag applicati alle pubblicazioni YouTube, automatiche e programmate, e alle didascalie TikTok. La coda conserva i metadati approvati.
+- Selezione multipla delle esportazioni e download ZIP con MP4, SRT disponibili, descrizioni e metadati. Verificati esportazioni obsolete, blocchi concorrenti e nomi di file.
+- Include l’adattamento predefinito con sfondo sfocato proposto nella PR #4.
+- Backup autentico della precedente versione ufficiale V2.3.0. Questa revisione comprende le modifiche descritte di seguito.
+
+## Adattamento con sfondo sfocato — 23 novembre 2026
 
 - “Intero con sfondo sfocato” è il valore predefinito dell’editor e delle esportazioni prive di una scelta esplicita, incluso il flusso automatico.
 - L’esportazione registra l’adattamento utilizzato. Le scelte già salvate nelle clip hanno precedenza sul valore predefinito.

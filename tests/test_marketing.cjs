@@ -1,0 +1,11 @@
+const fs=require('node:fs'),path=require('node:path'),vm=require('node:vm'),assert=require('node:assert/strict');
+const source=fs.readFileSync(path.join(__dirname,'../static/marketing.js'),'utf8');
+const c=vm.createContext({Map,Date});
+vm.runInContext(source,c);
+assert.ok(c.currentExport({exports:[{}]}),'Progetti precedenti senza edit_revision');
+assert.ok(c.currentExport({exports:[{edit_revision:2}],edit_revision:2}));
+assert.ok(!c.currentExport({exports:[{edit_revision:1}],edit_revision:2}));
+assert.ok(!c.currentExport({exports:[]}));
+assert.match(c.promotionNote({promotion:{trend_status:'unavailable'}}),/non disponibili/);
+assert.match(c.promotionNote({promotion:{trend_status:'fresh',trend_checked_at:1000,trending_hashtags:['#GTA6']}}),/#GTA6/);
+console.log('PASS: selezione export compatibili e obsoleti, stato della fonte delle tendenze.');

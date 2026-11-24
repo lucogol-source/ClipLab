@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 import os
+import re
 import secrets
 import shutil
 import threading
@@ -9,8 +10,9 @@ from concurrent.futures import ThreadPoolExecutor
 from contextlib import asynccontextmanager
 from typing import Literal
 
-from fastapi import FastAPI, File, Form, HTTPException, Request, UploadFile
-from fastapi.responses import FileResponse, HTMLResponse, JSONResponse, RedirectResponse
+from fastapi import FastAPI, File, Form, HTTPException, Request, UploadFile, Query
+from fastapi.responses import FileResponse, HTMLResponse, JSONResponse, RedirectResponse, StreamingResponse
+from starlette.background import BackgroundTask
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
 from starlette.middleware.trustedhost import TrustedHostMiddleware
@@ -19,6 +21,8 @@ import engine
 import youtube
 import captions
 import publishing
+import promotion
+import bundles
 import suggestions
 import tiktok
 from version import VERSION
@@ -337,7 +341,7 @@ def publish(pid: str, cid: str, body: PublishBody):
             raise HTTPException(409,'Questa clip è già stata caricata su YouTube.')
         if not clip["exports"] or clip["exports"][-1].get("edit_revision",0)!=clip.get("edit_revision",0):
             raise ValueError("Riesporta la clip modificata prima di pubblicare.")
-        return task(pid, cid, youtube.upload_clip, body.channel_id, body.privacy, body.made_for_kids, body.title, body.description)
+        return task(pid, cid, youtube.upload_clip, body.channel_id, body.privacy, body.made_for_kids, body.title, promotion.description(body.description, clip.get("hashtags", [])))
 
 
 @app.get("/api/youtube")
@@ -486,6 +490,74 @@ def retry_suggestion(key: str):
 def resend_suggestion(key: str):
     suggestions.resend(key)
     return {"queued": True}
+
+
+class BundleBody(BaseModel):
+    clip_ids: list[str] = Field(min_length=1, max_length=500)
+
+
+@app.post("/api/projects/{pid}/download/check")
+def check_download(pid: str, body: BundleBody):
+    with BUSY_LOCK:
+        bundles.validate(pid, body.clip_ids)
+    return {"ready": True}
+
+
+@app.get("/api/projects/{pid}/download")
+def download_bundle(pid: str, clips: str = Query(min_length=1, max_length=7000)):
+    stream = bundles.create(pid, clips.split(","))
+    def chunks():
+        try:
+            while chunk := stream.read(1024 * 1024):
+                yield chunk
+        finally:
+            stream.close()
+    return StreamingResponse(chunks(), media_type="application/zip",
+                             headers={"Content-Disposition": f'attachment; filename="ClipLab-{pid[:8]}.zip"'},
+                             background=BackgroundTask(stream.close))
+
+
+class MetadataBody(BaseModel):
+    description: str = Field(max_length=5000)
+
+
+@app.patch("/api/projects/{pid}/clips/{cid}/metadata")
+def save_metadata(pid: str, cid: str, body: MetadataBody):
+    with BUSY_LOCK:
+        _, clip = editable_clip(pid, cid)
+        if clip.get("description") != body.description:
+            publishing.invalidate_clip(pid, cid)
+            engine.update_clip(pid, cid, description=body.description, hashtags=list(dict.fromkeys(re.findall(r"#[^\W_]+", body.description, re.UNICODE))))
+    return {"saved": True}
+
+
+class PromotionBody(BaseModel):
+    replace_title: bool = False
+
+
+@app.post("/api/projects/{pid}/clips/{cid}/promotion")
+def refresh_promotion(pid: str, cid: str, body: PromotionBody):
+    p, clip = editable_clip(pid, cid)
+    index = next(i for i, c in enumerate(p["clips"]) if c["id"] == cid)
+    result = promotion.generate(p, clip, index=index)
+    with BUSY_LOCK:
+        _, latest = editable_clip(pid, cid)
+        if any(latest.get(key) != clip.get(key) for key in ("start", "end", "title", "edit_revision", "description")):
+            raise HTTPException(409, "La clip è cambiata. Riaprila e riprova.")
+        publishing.invalidate_clip(pid, cid)
+        if not body.replace_title:
+            result["title"] = latest["title"]
+            text = latest.get("description") or latest["title"]
+            old_tags = {tag.casefold() for tag in latest.get("hashtags", [])}
+            text = re.sub(r"#[^\W_]+", lambda m: "" if m.group().casefold() in old_tags else m.group(), text)
+            result["description"] = promotion.description(text.strip(), result["hashtags"])
+        elif result["title"] != latest["title"]:
+            edit = dict(latest.get("edit") or (latest["exports"][-1]["settings"] if latest["exports"] else {}))
+            edit["title"] = result["title"]
+            result["edit"] = edit
+            result["edit_revision"] = latest.get("edit_revision", 0) + 1
+        engine.update_clip(pid, cid, **result)
+    return result
 
 
 class TikTokConfig(BaseModel):

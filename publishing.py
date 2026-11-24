@@ -6,6 +6,7 @@ import time
 import uuid
 
 import engine
+import promotion
 
 DB=engine.DATA/"publishing.sqlite3"
 STOP=threading.Event()
@@ -77,6 +78,9 @@ def schedule(pid,clip_ids,platforms,start_at,interval_hours,metadata):
         for platform in set(platforms):
             if clip.get(platform):raise ValueError("Una delle clip è già stata inviata alla piattaforma scelta.")
             payload=dict(metadata,title=metadata.get("titles",{}).get(cid,clip["title"]))
+            payload["hashtags"] = clip.get("hashtags", [])
+            payload["description"] = promotion.description(metadata.get("description") or clip.get("description", ""),
+                                                            payload["hashtags"])
             if platform=="tiktok":tiktok.validate_post(tt,payload,export["settings"]["end"]-export["settings"]["start"])
             records.append((uuid.uuid4().hex,batch,platform,pid,cid,export["id"],revision,start_at+i*interval_hours*3600,
                             interval_hours*3600,"queued",json.dumps(payload),time.time()))
